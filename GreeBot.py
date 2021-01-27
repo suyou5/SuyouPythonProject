@@ -19,12 +19,12 @@ class GreeBot(object):
         循环
         :return:
         """
-        start_time = time.time()
         _, last_msgId = self.message.get_message()
         while True:
             content, msgId = self.message.get_message()
             if msgId != last_msgId:
-                print(content)
+                time_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                print(time_str + content)
                 last_msgId = msgId
                 if ':tr' in content:
                     dst = translation(content[3:])

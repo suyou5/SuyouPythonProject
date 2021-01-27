@@ -29,7 +29,7 @@ class GreeBot(object):
                 if ':tr' in content:
                     dst = translation(content[3:])
                     print(dst)
-                    self.message.send_message(dst)
+                    last_msgId = self.message.send_message(dst)
 
             time.sleep(1)
 

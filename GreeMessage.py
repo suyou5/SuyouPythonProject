@@ -45,16 +45,20 @@ class GreeMessage(object):
         """
         sendMessageUrl = r'https://yun1.gree.com/im/web/sendMessage.do'
         sendMessageForm = {
-            'groupId': '',
-            'toUserId': 'XT-0060b6fb-b5e9-4764-a36d-e3be66276586',
+            # 'groupId': '',
+            'groupId': 'ee4a39b5-fd5e-4d87-aad6-ca6ceab1da5b',
+            # 'toUserId': 'XT-0060b6fb-b5e9-4764-a36d-e3be66276586',
+            'toUserId': '',
             'msgType': '2',
             'content': content,
             'msgLen': 4,
             'param': '{\"notifyType\": 1, \"notifyTo": [], \"notifyToAll\": false}',
         }
         r = requests.post(sendMessageUrl, data=sendMessageForm, headers=self.header, verify=True)
+        response = json.loads(r.text)
+        msgId = response['data']['msgId']
 
-        return r.text
+        return msgId
 
     def get_message(self):
         """
@@ -64,7 +68,8 @@ class GreeMessage(object):
         listMessageUrl = r'https://yun1.gree.com/im/web/listMessage.do'
 
         getMessageForm = {
-            'groupId': '833a43fb-d0b5-11ea-8b3b-005056af442d-XT-0060b6fb-b5e9-4764-a36d-e3be66276586',
+            # 'groupId': '833a43fb-d0b5-11ea-8b3b-005056af442d-XT-0060b6fb-b5e9-4764-a36d-e3be66276586',
+            'groupId': 'ee4a39b5-fd5e-4d87-aad6-ca6ceab1da5b',
             'type': 'new',
             'count': '1',
             'msgId': '',
@@ -75,6 +80,7 @@ class GreeMessage(object):
         try:
             content = response['data']['list'][0]['content']
             msgId = response['data']['list'][0]['msgId']
+            content = content.replace('\n', ' ')
         except TypeError:
             print(r.text)
             return "接收信息发生了错误", "0"
@@ -83,7 +89,7 @@ class GreeMessage(object):
 
 if __name__ == '__main__':
     msg = GreeMessage()
-    text = msg.send_message("6666")
+    text = msg.send_message("888")
     print(text)
     text2 = msg.get_message()
-    print(text)
+    print(text2)

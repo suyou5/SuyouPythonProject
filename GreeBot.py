@@ -19,9 +19,9 @@ class GreeBot(object):
         循环
         :return:
         """
-        _, last_msgId = self.message.get_message()
+        _, last_msgId = self.message.get_message_to_group()
         while True:
-            content, msgId = self.message.get_message()
+            content, msgId = self.message.get_message_to_group()
             if msgId != last_msgId:
                 time_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                 print(time_str + content)
@@ -29,7 +29,7 @@ class GreeBot(object):
                 if ':tr' in content:
                     dst = translation(content[3:])
                     print(dst)
-                    last_msgId = self.message.send_message(dst)
+                    last_msgId = self.message.send_message_to_group(dst)
 
             time.sleep(1)
 

@@ -37,7 +37,7 @@ class GreeMessage(object):
                       'sync_userid=833a9767-d0b5-11ea-8b3b-005056af442d '
         }
 
-    def send_message(self, content):
+    def send_message_to_group(self, content):
         """
         给G平台上的文件传输助手发送消息
         :param content:
@@ -60,7 +60,7 @@ class GreeMessage(object):
 
         return msgId
 
-    def get_message(self):
+    def get_message_to_group(self):
         """
         获取格力G平台上文件传输助手的最后一条消息
         :return:
@@ -89,7 +89,7 @@ class GreeMessage(object):
 
 if __name__ == '__main__':
     msg = GreeMessage()
-    text = msg.send_message("888")
+    text = msg.send_message_to_group("888")
     print(text)
-    text2 = msg.get_message()
+    text2 = msg.get_message_to_group()
     print(text2)
